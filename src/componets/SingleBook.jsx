@@ -6,16 +6,9 @@ import CommentArea from './CommentArea'
 
 class SingleBook extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
-            selected: false,
-            comments: [ 
-                // commenti di esempio
-                { text: "Da Davide Nardi: Bel libro, lo adoro💘!" },
-                { text: "Da Giulio Marra: Lettura molto interessante,consigliato a chiunque sia un epicoder🚀" },
-                { text: "prova 3" },
-                { text: "Prova 4" }
-            ]
+            selected: false
         }
     }
 
@@ -26,14 +19,13 @@ class SingleBook extends React.Component {
     }
 
     render() {
-        const { book } = this.props;
-        const { selected, comments } = this.state;
+        const { book } = this.props
+        const { selected } = this.state
         return (
             <Card className={`mb-4 card-container m-3 ${selected ? 'selected-style' : ''}`}>
                 <LazyLoadImage
                     alt={book.title}
                     src={book.img}
-                    variant="top"
                     className="card-img-top"
                     onClick={this.toggleSelect} 
                 />
@@ -42,7 +34,7 @@ class SingleBook extends React.Component {
                     <Card.Text>{`Prezzo: ${book.price}€`}</Card.Text>
                     <Card.Text>{`Categoria: ${book.category}`}</Card.Text>
                     <Button variant="primary">Scopri Di Più 🔍</Button>
-                    {selected && <CommentArea comments={comments} />}
+                    {selected && <CommentArea book={book} />}
                 </Card.Body>
             </Card>
         )
@@ -50,3 +42,4 @@ class SingleBook extends React.Component {
 }
 
 export default SingleBook
+
