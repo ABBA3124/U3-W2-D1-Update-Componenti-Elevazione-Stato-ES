@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 const AddComment = ({ book, onAddComment }) => {
   const [text, setText] = useState('')
-  const [rate, setRate] = useState('1') //valore minimo
+  const [rate, setRate] = useState('1') 
 
   
   const handleSubmit = async (e) => {

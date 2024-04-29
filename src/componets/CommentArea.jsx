@@ -2,13 +2,15 @@ import React, { Component } from 'react'
 import CommentsList from './CommentsList'
 import AddComment from './AddComment'
 import Loading from './Loading'
+import Error from './Error'
 
 class CommentArea extends Component {
     constructor(props) {
         super(props)
         this.state = {
             comments: [],
-            isLoading: false
+            isLoading: false,
+            error: null
         }
         this.addComment = this.addComment.bind(this)
     }
@@ -32,7 +34,7 @@ class CommentArea extends Component {
     }
   
     fetchComments = async () => {
-        this.setState({ isLoading: true })
+        this.setState({ isLoading: true, error: null })
         try {
           const response = await fetch(`https://striveschool-api.herokuapp.com/api/comments/${this.props.book.asin}`, {
             headers: {
@@ -45,10 +47,11 @@ class CommentArea extends Component {
           } else {
             console.error('Impossibile recuperare i commenti')
             this.setState({ isLoading: false })
+            throw new Error('Failed to fetch comments')
           }
         } catch (error) {
           console.error('Errore durante il recupero dei commenti:', error)
-          this.setState({ isLoading: false })
+          this.setState({ error: error.message, isLoading: false })
         }
       }
   
@@ -70,16 +73,18 @@ class CommentArea extends Component {
         } else {
             console.error("Errore durante la cancellazione del commento")
             this.setState({ isLoading: false })
+            throw new Error('Failed to delete comment')
         }
     }
 
 
 
       render() {
+        const { isLoading, comments, error } = this.state
         return (
             <div>
               <h3 className='mt-3 mb-2'>Recensioni⬇️</h3>
-              {this.state.isLoading ? <Loading /> : (
+              {isLoading ? <Loading /> : error ? <Error message={error} /> : (
              <>
               <CommentsList comments={this.state.comments} onDelete={this.deleteComment} />
               <AddComment book={this.props.book} onAddComment={this.addComment} />
