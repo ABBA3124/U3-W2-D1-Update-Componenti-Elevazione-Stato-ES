@@ -2,14 +2,15 @@ import React, { useState } from 'react'
 
 const AddComment = ({ book, onAddComment }) => {
   const [text, setText] = useState('')
+  const [rate, setRate] = useState('1') //valore minimo
 
   
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (text && book && book.asin) {
+    if (text && rate && book && book.asin) {
       const commentData = {
         comment: text,
-        rate: "3",  
+        rate: rate,  
         elementId: book.asin
       }
 
@@ -25,7 +26,8 @@ const AddComment = ({ book, onAddComment }) => {
       if (response.ok) {
         const postedComment = await response.json()
         onAddComment(postedComment)
-        setText('') 
+        setText('')
+        setRate('1') 
       } else {
         console.error("Errore durante l'invio del commento")
       }
@@ -41,7 +43,16 @@ const AddComment = ({ book, onAddComment }) => {
         placeholder="Scrivi una recensione"
         className='p-1'
       />
-      <button type="submit" className='btn btn-success ms-1'>Invia</button>
+      <select
+      value={rate}
+      onChange={(e) => setRate(e.target.value)}
+      className='mx-2'
+      >
+        {[1, 2, 3, 4, 5].map(num => (
+            <option key={num} value={num}>{num}</option>
+        ))}
+        </select>
+      <button type="submit" className='btn btn-success'>Invia</button>
     </form>
   )
 }
