@@ -81,7 +81,7 @@ class CommentArea extends Component {
 
 
       render() {
-        const { isLoading, comments, error } = this.state
+        const { isLoading, error } = this.state
         return (
           <div>
               <h3 className='mt-3 mb-4'>⬇️Recensioni⬇️</h3>
