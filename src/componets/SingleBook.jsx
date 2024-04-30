@@ -2,11 +2,15 @@ import React from 'react'
 import { Card, Button } from 'react-bootstrap'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import '../CSS/AllTheBooks.css'
-// import CommentArea from './CommentArea'
 
-function SingleBook({ book, onBookSelect }) {
+function SingleBook({ book, onBookSelect, selectedAsin}) {
+    const isSelected = book.asin === selectedAsin;
+
     return (
-        <Card className="mb-4 card-container" onClick={() => onBookSelect(book)}>
+        <Card 
+          className={`mb-4 card-container m-3 ${isSelected ? 'selected-style' : ''}`}
+          onClick={() => onBookSelect(book)}
+        >
             <LazyLoadImage
                 alt={book.title}
                 src={book.img}
