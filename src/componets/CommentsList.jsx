@@ -10,13 +10,13 @@ const CommentsList = ({ comments, onDelete }) => {
     <ul>
       {comments.map((comment) => (
         <li className="list-unstyled mb-3" key={comment._id}>
-          <strong>Autore:</strong> {comment.author}
+          <strong>Autore✍️</strong> {comment.author}
           <br />
-          <strong>Commento:</strong> {comment.comment}
+          <strong>Commento🗒️</strong> {comment.comment}
           <br />
-          <strong>Valutazione:</strong> {comment.rate}/5
+          <strong>Valutazione:</strong> {comment.rate}/5⭐
           <br />
-          <strong>Data:</strong> {formatDate(comment.createdAt)}
+          <strong>Data📆</strong> {formatDate(comment.createdAt)}
           <button onClick={() => onDelete(comment._id)} className="btn btn-danger ms-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"

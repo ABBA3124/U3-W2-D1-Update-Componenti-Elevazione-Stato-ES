@@ -34,7 +34,7 @@ function App() {
       <Row>
         <Col>
           <Form.Group controlId="genreSelect">
-            <Form.Label>Scegli La Categoria</Form.Label>
+            <Form.Label><h5>Filtra Per Categoria</h5></Form.Label>
             <Form.Control as="select" value={genre} onChange={e => setGenre(e.target.value)}>
             <option value="all">Tutti</option>
               <option value="fantasy">Fantasy</option>

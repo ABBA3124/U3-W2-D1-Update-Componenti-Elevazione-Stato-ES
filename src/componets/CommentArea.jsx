@@ -22,10 +22,11 @@ class CommentArea extends Component {
     }
     
     componentDidUpdate(prevProps) {
-        if (!prevProps.book && this.props.book && this.props.book.asin) {
-            this.fetchComments()
+      // Controlla se il libro è cambiato confrontando l'asin, non solo la presenza di un libro
+      if (prevProps.book && this.props.book && prevProps.book.asin !== this.props.book.asin) {
+          this.fetchComments()
       }
-    }
+  }
 
     addComment = (newComment) => {
         this.setState(prevState => ({
@@ -82,14 +83,16 @@ class CommentArea extends Component {
       render() {
         const { isLoading, comments, error } = this.state
         return (
-            <div>
-              <h3 className='mt-3 mb-2'>Recensioni⬇️</h3>
+          <div>
+              <h3 className='mt-3 mb-4'>⬇️Recensioni⬇️</h3>
+              <div className='text-start'>
               {isLoading ? <Loading /> : error ? <Error message={error} /> : (
              <>
               <CommentsList comments={this.state.comments} onDelete={this.deleteComment} />
-              <AddComment book={this.props.book} onAddComment={this.addComment} />
               </>
               )}
+              </div>
+              <AddComment book={this.props.book} onAddComment={this.addComment} />
           </div>
         )
       }
